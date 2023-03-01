@@ -40,7 +40,10 @@ function CountriesGrid() {
       // ???
       detailData = jsonData.filter((e) => e.name.common === nameFilter);
     setDataForDetailPage(detailData);
-    setDetailPageView((wasOpened) => !wasOpened);
+    // setDetailPageView(true); // here
+    // setDetailPageView((wasOpened) => !wasOpened);
+    // button()
+    toggle();
   }, [nameFilter]);
 
   //filterByContinent
@@ -58,11 +61,14 @@ function CountriesGrid() {
     });
     setFilterToCardsGrid(filteredData);
   }, [inputTextToFilter]);
-
-  const button = (e) => {
-    // setNameFilter(null); // kiedy zmienia sie nameFilter odpala sie filter z setNameFilter/ sposób na celearowanie state bez odpalania useEffect ?
-    setDetailPageView((wasOpened) => !wasOpened);
-  };
+//button to close detail and reset filter
+  // const button = (e) => {
+  //   // toggle();
+  //   resetState();
+  // };
+  const toggle = () => setDetailPageView((wasOpened) => !wasOpened)
+  // const resetState = () => setNameFilter(undefined);
+  const resetDetailState= () => setNameFilter(undefined);
 
   return (
     <>
@@ -82,10 +88,11 @@ function CountriesGrid() {
           </>
         ) : (
           <>
-            <CountriesDetails data={dataForDetailPage} jsonData={jsonData} />
-            <button onClick={button} style={{ height: "20px", color: "white" }}>
+            <CountriesDetails data={dataForDetailPage} jsonData={jsonData} button={resetDetailState}
+            />
+            {/* <button onClick={resetDetailState} style={{ height: "20px", color: "white" }}>
               GETBACK{" "}
-            </button>
+            </button> */}
           </>
         )}
       </div>

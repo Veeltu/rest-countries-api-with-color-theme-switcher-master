@@ -1,22 +1,22 @@
 import React from "react";
 
-function CountriesDetails({ data, jsonData }) {
+function CountriesDetails({ data, jsonData,button }) {
   // console.log(data);
   // borders country buttons ?
   // useMemo
- 
-    const bordersCoutries = data.map((e) => e.borders);
-    const some = jsonData.filter(item => bordersCoutries[0].includes(item.cca3))
-    
 
-
-
+  const borderCountries = (e) => {
+    const findCountry = jsonData.filter((item) => e.includes(item.cca3));
+    const countryNames = findCountry.map((e) => e.name.common);
+    return countryNames;
+  };
 
   return (
     <main className="w-[80%] max-w-md lg:max-w-6xl mx-auto capitalize py-14 relative">
       <button
         className="bg-White dark:bg-DarkBlue p-[.3em] px-[1.2em] rounded-sm mb-9 flex gap-2 
     items-center text-sm drop-shadow-md "
+      onClick={button}
       >
         GET BACK
       </button>
@@ -77,11 +77,13 @@ function CountriesDetails({ data, jsonData }) {
                 <span className="font-semibold"> Border countries: </span>
                 {e.borders
                   ? e.borders.map((e) => (
-                      <ul className="cursor-pointer bg-White dark:bg-DarkBlue p-[.3em] px-[1.3em] m-4 rounded-sm drop-shadow-lg ">
-                        {e}
+                      <ul 
+                      key={e}
+                      className="cursor-pointer bg-White dark:bg-DarkBlue p-[.3em] px-[1.3em] m-4 rounded-sm drop-shadow-lg ">
+                        {borderCountries(e)}
                       </ul>
                     ))
-                  : ["none"]}
+                  : "none"}
               </div>
             </div>
           </div>
