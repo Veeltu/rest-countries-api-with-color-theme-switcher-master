@@ -71,7 +71,7 @@ function CountriesGrid() {
 
   return (
     <>
-      <div className="h-screen px-12 py-10 bg-gray-100 dark:bg-BackgroundDarkBlue">
+      <div className="px-12 py-10 bg-gray-100  dark:bg-BackgroundDarkBlue">
         {detailPageView ? (
           <>
             <div className="flex flex-col justify-between sm:flex-row">
