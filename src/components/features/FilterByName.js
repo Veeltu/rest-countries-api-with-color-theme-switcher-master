@@ -1,8 +1,10 @@
-function FilterByName({ setInputTextToFilter }) {
+function FilterByName({ setInputTextToFilter, inputTextToFilter }) {
+  console.log(inputTextToFilter)
   return (
     <div>
       <div className="relative block ">
         <input
+          value={inputTextToFilter}
           className="block w-full py-2 pr-3 bg-white border-none rounded-md shadow-xl placeholder:italic placeholder:text-slate-400 pl-9 focus:outline-none sm:text-sm"
           placeholder="Search for a country..."
           name="search"

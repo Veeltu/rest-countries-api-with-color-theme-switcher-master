@@ -35,16 +35,20 @@ function CountriesGrid() {
 
   //filter for one country match with "nameFilter"
   useEffect(() => {
-    let detailData = []; // starts empty
+    let detailData = [];
     if (nameFilter !== [])
       // ???
       detailData = jsonData.filter((e) => e.name.common === nameFilter);
     setDataForDetailPage(detailData);
-    // setDetailPageView(true); // here
-    // setDetailPageView((wasOpened) => !wasOpened);
-    // button()
     toggle();
   }, [nameFilter]);
+
+  const changeCountry = (e) => {
+    // console.log(e)
+    const a = e.currentTarget.textContent;
+    const detailData = jsonData.filter((e) => e.name.common === a);
+    setDataForDetailPage(detailData);
+  };
 
   //filterByContinent
   useEffect(() => {
@@ -61,23 +65,24 @@ function CountriesGrid() {
     });
     setFilterToCardsGrid(filteredData);
   }, [inputTextToFilter]);
-//button to close detail and reset filter
-  // const button = (e) => {
-  //   // toggle();
-  //   resetState();
-  // };
-  const toggle = () => setDetailPageView((wasOpened) => !wasOpened)
-  // const resetState = () => setNameFilter(undefined);
-  const resetDetailState= () => setNameFilter(undefined);
+
+  const toggle = () => setDetailPageView((wasOpened) => !wasOpened);
+  const resetDetailState = () => setNameFilter(undefined);
 
   return (
     <>
-      <div className="px-12 py-10 bg-gray-100 dark:bg-BackgroundDarkBlue">
+      <div className="h-screen px-12 py-10 bg-gray-100 dark:bg-BackgroundDarkBlue">
         {detailPageView ? (
           <>
-            <div className="flex justify-between">
-              <FilterByName setInputTextToFilter={setInputTextToFilter} />
-              <FilterByContinent setFilterByContinent={setFilterByContinent} />
+            <div className="flex flex-col justify-between sm:flex-row">
+              <FilterByName
+                setInputTextToFilter={setInputTextToFilter}
+                inputTextToFilter={inputTextToFilter}
+              />
+              <FilterByContinent
+                setFilterByContinent={setFilterByContinent}
+                filterByContinent={filterByContinent}
+              />
             </div>
             <div className="cursor-pointer">
               <CountriesCards
@@ -88,11 +93,12 @@ function CountriesGrid() {
           </>
         ) : (
           <>
-            <CountriesDetails data={dataForDetailPage} jsonData={jsonData} button={resetDetailState}
+            <CountriesDetails
+              data={dataForDetailPage}
+              jsonData={jsonData}
+              button={resetDetailState}
+              setNameFilter={changeCountry}
             />
-            {/* <button onClick={resetDetailState} style={{ height: "20px", color: "white" }}>
-              GETBACK{" "}
-            </button> */}
           </>
         )}
       </div>
